@@ -89,7 +89,7 @@ export const AIChatPanel: FC = () => {
     '¿Qué tareas pendientes tengo hoy?',
     '¿Qué hice ayer?',
     'Háblame de mis ideas',
-    'Recomiéndame algo para mi idea de Aura PWA'
+    'Recomiéndame algo para mi idea de Tienda de plantas'
   ];
 
   return (
@@ -103,7 +103,7 @@ export const AIChatPanel: FC = () => {
       <header style={{ marginBottom: '1rem' }}>
         <h2 style={{ fontSize: 'var(--font-xl)', color: 'var(--color-neon-purple)', textShadow: 'var(--shadow-neon-purple)', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Sparkles aria-hidden="true" style={{ color: 'var(--color-neon-purple)' }} />
-          Asistente Aura-AI
+          Asistente MSL-AI
         </h2>
         <span style={{ fontSize: 'var(--font-xs)', color: 'var(--color-text-secondary)' }}>
           Analiza tus notas del planificador y bloc de ideas en tiempo real

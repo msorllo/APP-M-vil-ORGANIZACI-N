@@ -44,13 +44,13 @@ const runLocalOfflineAI = (userInput: string, tasks: Task[], ideas: Idea[]): str
     const filteredTasks = tasks.filter(t => t.date === targetDate);
 
     if (filteredTasks.length === 0) {
-      return `🔮 **Aura-AI Local:** He escaneado tu agenda. Para **${dateLabel}** no tienes tareas registradas. ¿Te gustaría añadir alguna tarea importante desde el planificador diario?`;
+      return `🔮 **MSL-AI Local:** He escaneado tu agenda. Para **${dateLabel}** no tienes tareas registradas. ¿Te gustaría añadir alguna tarea importante desde el planificador diario?`;
     }
 
     const completed = filteredTasks.filter(t => t.completed);
     const pending = filteredTasks.filter(t => !t.completed);
 
-    let response = `🔮 **Aura-AI Local:** He consultado tu planificador diario para **${dateLabel} (${targetDate})**.\n\n`;
+    let response = `🔮 **MSL-AI Local:** He consultado tu planificador diario para **${dateLabel} (${targetDate})**.\n\n`;
     response += `📊 Tienes **${filteredTasks.length}** tareas en total. (**${completed.length}** completadas, **${pending.length}** pendientes).\n\n`;
     
     if (completed.length > 0) {
@@ -77,7 +77,7 @@ const runLocalOfflineAI = (userInput: string, tasks: Task[], ideas: Idea[]): str
   // 2. Check for questions about Ideas ("idea", "ideas", "proyecto", "negocio")
   if (query.includes('idea') || query.includes('proyecto') || query.includes('negocio') || query.includes('crear') || query.includes('apunte')) {
     if (ideas.length === 0) {
-      return `🔮 **Aura-AI Local:** Actualmente no tienes ideas guardadas en tu bloc. ¡Toca la pestaña de **Ideas** y apunta tu primera gran ocurrencia para que pueda ayudarte a estructurarla!`;
+      return `🔮 **MSL-AI Local:** Actualmente no tienes ideas guardadas en tu bloc. ¡Toca la pestaña de **Ideas** y apunta tu primera gran ocurrencia para que pueda ayudarte a estructurarla!`;
     }
 
     // Try to match a specific idea by keyword
@@ -87,7 +87,7 @@ const runLocalOfflineAI = (userInput: string, tasks: Task[], ideas: Idea[]): str
     );
 
     if (matchedIdea) {
-      return `🔮 **Aura-AI Local (Cerebro Offline):** Analizando tu idea **"${matchedIdea.title}"**...\n\n` +
+      return `🔮 **MSL-AI Local (Cerebro Offline):** Analizando tu idea **"${matchedIdea.title}"**...\n\n` +
              `📝 **Resumen actual:** *${matchedIdea.content}*\n\n` +
              `🚀 **Recomendaciones de Desarrollo:**\n` +
              `1. **Validación de Concepto:** Identifica a 3 personas en tu entorno que sufran el problema que soluciona tu idea y pregúntales su opinión.\n` +
@@ -97,7 +97,7 @@ const runLocalOfflineAI = (userInput: string, tasks: Task[], ideas: Idea[]): str
     }
 
     // General ideas list
-    let response = `🔮 **Aura-AI Local:** He encontrado **${ideas.length}** ideas innovadoras en tu bloc de notas:\n\n`;
+    let response = `🔮 **MSL-AI Local:** He encontrado **${ideas.length}** ideas innovadoras en tu bloc de notas:\n\n`;
     ideas.forEach((idea, index) => {
       response += `${index + 1}. **${idea.title}** [${idea.category}]: *${idea.content}*\n`;
     });
@@ -108,7 +108,7 @@ const runLocalOfflineAI = (userInput: string, tasks: Task[], ideas: Idea[]): str
 
   // 3. Check for help
   if (query.includes('ayuda') || query.includes('que puedes') || query.includes('como funciona') || query.includes('hola')) {
-    return `🔮 **¡Hola! Bienvenido a Aura AI.**\n\n` +
+    return `🔮 **¡Hola! Bienvenido a MSL AI.**\n\n` +
            `Como tu asistente local, puedo ayudarte a analizar tu día a día. Puedes preguntarme:\n` +
            `- *"¿Qué tareas pendientes tengo hoy?"*\n` +
            `- *"¿Qué hice ayer?"*\n` +
@@ -118,7 +118,7 @@ const runLocalOfflineAI = (userInput: string, tasks: Task[], ideas: Idea[]): str
   }
 
   // 4. Default intelligent response
-  return `🔮 **Aura-AI Local:** He recibido tu consulta: *"${userInput}"*.\n\n` +
+  return `🔮 **MSL-AI Local:** He recibido tu consulta: *"${userInput}"*.\n\n` +
          `Actualmente estoy funcionando en **Modo Local Offline** (100% privado y gratuito). Para responder consultas generales complejas fuera de tus notas e ideas, te sugiero activar tu clave de **Gemini** en Ajustes.\n\n` +
          `**¿Sabías qué?** Tengo acceso a tu agenda diaria (${tasks.length} tareas) y a tu bloc de ideas (${ideas.length} ideas). Prueba a preguntarme: *"¿Qué tengo pendiente hoy?"* o *"Háblame de mis ideas"* y te daré un informe instantáneo.`;
 };
@@ -135,7 +135,7 @@ const runGeminiAI = async (userInput: string, tasks: Task[], ideas: Idea[], apiK
   const ideasContext = ideas.map(i => `- [Categoría: ${i.category}] Título: ${i.title}. Descripción: ${i.content}`).join('\n');
 
   const systemInstruction = 
-    `Eres Aura-AI, una inteligencia artificial elegante, moderna y con estilo Cyberpunk integrada en una aplicación móvil de organización personal.\n` +
+    `Eres MSL-AI, una inteligencia artificial elegante, moderna y con estilo cyberpunk integrada en una aplicación móvil de organización personal llamada APP MSL.\n` +
     `Tu misión es ayudar al usuario a organizar su vida diaria, planificar tareas y expandir sus ideas creativas de forma amigable y concisa (ideal para leer en pantallas de teléfonos).\n` +
     `Tienes acceso al contexto del usuario en tiempo real:\n\n` +
     `=== TAREAS Y NOTAS DIARIAS ===\n${tasksContext || '(Sin tareas registradas)'}\n\n` +

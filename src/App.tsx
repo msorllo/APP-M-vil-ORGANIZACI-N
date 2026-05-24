@@ -114,7 +114,7 @@ export default function App() {
               aria-hidden="true"
             />
             <span style={{ fontWeight: 'bold', color: 'var(--color-text-secondary)', letterSpacing: '0.5px' }}>
-              AURA CORE v2.1
+              APP MSL CORE v2.1
             </span>
           </div>
 
@@ -154,7 +154,7 @@ export default function App() {
               animation: 'glitch-neon 4s infinite'
             }}
           >
-            AURA
+            APP MSL
           </h1>
           <div 
             style={{

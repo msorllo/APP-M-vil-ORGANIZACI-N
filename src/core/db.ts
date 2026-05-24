@@ -41,19 +41,25 @@ export interface ChatMessage {
 const DEFAULT_TASKS: Task[] = [
   {
     id: 't1',
-    text: 'Revisar la arquitectura del organizador Aura con el equipo',
+    text: 'Reunión de planificación del proyecto con el equipo de diseño',
     completed: true,
     date: new Date().toISOString().split('T')[0]
   },
   {
     id: 't2',
-    text: 'Implementar el motor de IA híbrido offline',
+    text: 'Hacer la compra de la semana (frutas, verduras, cereales y leche)',
     completed: false,
     date: new Date().toISOString().split('T')[0]
   },
   {
     id: 't3',
-    text: 'Asegurar accesibilidad de nivel AAA en la barra de navegación',
+    text: 'Preparar la presentación del balance mensual para el cliente',
+    completed: false,
+    date: new Date().toISOString().split('T')[0]
+  },
+  {
+    id: 't4',
+    text: 'Entrenamiento de gimnasio: 45 minutos de cardio y fuerza',
     completed: false,
     date: new Date().toISOString().split('T')[0]
   }
@@ -62,18 +68,26 @@ const DEFAULT_TASKS: Task[] = [
 const DEFAULT_IDEAS: Idea[] = [
   {
     id: 'i1',
-    title: 'Aura PWA Móvil',
-    content: 'Una aplicación para teléfonos que organiza notas, ideas y usa IA local gratuita para analizar hábitos.',
+    title: 'Tienda de plantas online a domicilio',
+    content: 'Crear una plataforma para comprar plantas de interior fáciles de cuidar, que incluya una ficha con un código QR en cada maceta con recordatorios automáticos de riego.',
+    category: 'Negocio',
+    color: 'magenta',
+    createdAt: new Date().toLocaleDateString()
+  },
+  {
+    id: 'i2',
+    title: 'Álbum digital interactivo familiar',
+    content: 'Escanear y digitalizar las fotos antiguas de las vacaciones de la infancia para crear una línea de tiempo interactiva donde la familia pueda añadir comentarios y anécdotas.',
     category: 'Proyecto',
     color: 'cyan',
     createdAt: new Date().toLocaleDateString()
   },
   {
-    id: 'i2',
-    title: 'Marca de Café Cyberpunk',
-    content: 'Cafetería temática con luces de neón y café de especialidad servido en tazas inteligentes que cambian de color.',
-    category: 'Negocio',
-    color: 'magenta',
+    id: 'i3',
+    title: 'Recetario de postres de 3 ingredientes',
+    content: 'Escribir un minilibro o blog con recetas de postres saludables y fáciles de preparar en menos de 10 minutos, usando ingredientes sencillos que todos tienen en casa.',
+    category: 'Creativo',
+    color: 'yellow',
     createdAt: new Date().toLocaleDateString()
   }
 ];
@@ -93,18 +107,18 @@ const DEFAULT_CHAT: ChatMessage[] = [
   {
     id: 'c1',
     sender: 'ai',
-    text: '¡Hola! Soy tu asistente de IA personal integrado. Estoy sincronizado con tu planificador y bloc de ideas de Aura. Puedes preguntarme sobre tus planes del día, sugerencias para desarrollar tus ideas, ¡o lo que necesites!',
+    text: '¡Hola! Soy tu asistente inteligente integrado en APP MSL. Estoy sincronizado con tu agenda de tareas y bloc de ideas. Puedes preguntarme sobre tus pendientes de hoy, sugerencias para desarrollar tus ideas de negocio o cómo organizar tu rutina. ¿En qué te puedo ayudar hoy?',
     timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   }
 ];
 
 // Keys for LocalStorage
 const KEYS = {
-  TASKS: 'aura_tasks',
-  IDEAS: 'aura_ideas',
-  AI_SETTINGS: 'aura_ai_settings',
-  A11Y_SETTINGS: 'aura_a11y_settings',
-  CHAT_LOGS: 'aura_chat_logs'
+  TASKS: 'msl_tasks',
+  IDEAS: 'msl_ideas',
+  AI_SETTINGS: 'msl_ai_settings',
+  A11Y_SETTINGS: 'msl_a11y_settings',
+  CHAT_LOGS: 'msl_chat_logs'
 };
 
 export const db = {
