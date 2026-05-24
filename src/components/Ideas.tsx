@@ -344,7 +344,7 @@ export const Ideas: FC = () => {
             </p>
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="ideas-grid-container" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {filteredIdeas.map((idea) => {
               const styles = getColorStyles(idea.color);
               return (

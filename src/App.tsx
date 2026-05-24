@@ -54,147 +54,124 @@ export default function App() {
   };
 
   return (
-    <div 
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
-        background: 'radial-gradient(circle at center, #0e0b20 0%, #030206 100%)',
-        padding: '10px',
-        boxSizing: 'border-box'
-      }}
-    >
+    <div className="app-viewport">
       {/* 
-        High-Fidelity Smartphone Mockup Frame: 
-        Maintains beautiful mobile proportions on desktops but stretches perfectly on real phones 
+        Responsive Adaptive Shell Layout:
+        Renders a split row-sidebar dashboard on desktop, and a compact portrait mobile container on phones.
       */}
-      <main
-        className="glass-panel"
-        style={{
-          width: '100%',
-          maxWidth: '460px',
-          height: '100%',
-          minHeight: 'calc(100vh - 20px)',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          padding: '20px 20px 0 20px',
-          background: 'rgba(10, 9, 21, 0.85)',
-          border: '1px solid rgba(157, 78, 221, 0.2)',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.8), 0 0 40px rgba(157, 78, 221, 0.05)',
-          overflow: 'hidden',
-          borderRadius: 'var(--radius-lg)'
-        }}
-      >
-        {/* Device Top Status Bar Panel */}
-        <section 
-          aria-label="Información del dispositivo"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            fontSize: '11px',
-            color: 'var(--color-text-muted)',
-            marginBottom: '14px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
-            paddingBottom: '8px'
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span 
-              style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                background: 'var(--color-neon-cyan)',
-                animation: 'pulse-cyan 2s infinite',
-                display: 'inline-block'
-              }}
-              aria-hidden="true"
-            />
-            <span style={{ fontWeight: 'bold', color: 'var(--color-text-secondary)', letterSpacing: '0.5px' }}>
-              APP MSL CORE v2.1
-            </span>
+      <main className="app-container glass-panel">
+        
+        {/* DESKTOP LEFT SIDEBAR NAVIGATION */}
+        <aside className="desktop-sidebar" aria-label="Navegación lateral de escritorio">
+          {/* Brand Header */}
+          <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+            <h1 className="sidebar-logo">APP MSL</h1>
+            <div className="logo-underline" aria-hidden="true" />
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span 
-              style={{ 
-                fontSize: '9px',
-                background: aiSettings.selectedProvider === 'gemini' ? 'rgba(255, 0, 127, 0.15)' : 'rgba(0, 240, 255, 0.15)',
-                color: aiSettings.selectedProvider === 'gemini' ? 'var(--color-neon-magenta)' : 'var(--color-neon-cyan)',
-                padding: '2px 6px',
-                borderRadius: 'var(--radius-sm)',
-                fontWeight: 'bold',
-                textTransform: 'uppercase'
-              }}
+          {/* Menu Items (Semantic Role Tabs) */}
+          <nav className="sidebar-nav" role="tablist">
+            <button
+              role="tab"
+              id="desktop-tab-planner"
+              aria-selected={activeTab === 'planner'}
+              aria-controls="panel-planner"
+              onClick={() => setActiveTab('planner')}
+              className={`sidebar-nav-btn ${activeTab === 'planner' ? 'active-planner' : ''}`}
             >
-              IA: {aiSettings.selectedProvider === 'gemini' ? 'GEMINI' : 'LOCAL'}
-            </span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }} title={online ? "En línea" : "Desconectado"}>
-              <Wifi size={12} style={{ color: online ? 'var(--color-success-green)' : 'var(--color-danger)' }} />
-              <span style={{ fontSize: '9px' }}>{online ? 'ON' : 'OFF'}</span>
+              <Calendar size={18} aria-hidden="true" />
+              <span>Agenda</span>
+            </button>
+
+            <button
+              role="tab"
+              id="desktop-tab-ideas"
+              aria-selected={activeTab === 'ideas'}
+              aria-controls="panel-ideas"
+              onClick={() => setActiveTab('ideas')}
+              className={`sidebar-nav-btn ${activeTab === 'ideas' ? 'active-ideas' : ''}`}
+            >
+              <Lightbulb size={18} aria-hidden="true" />
+              <span>Ideas</span>
+            </button>
+
+            <button
+              role="tab"
+              id="desktop-tab-chat"
+              aria-selected={activeTab === 'chat'}
+              aria-controls="panel-chat"
+              onClick={() => setActiveTab('chat')}
+              className={`sidebar-nav-btn ${activeTab === 'chat' ? 'active-chat' : ''}`}
+            >
+              <Sparkles size={18} aria-hidden="true" />
+              <span>Asistente IA</span>
+            </button>
+
+            <button
+              role="tab"
+              id="desktop-tab-settings"
+              aria-selected={activeTab === 'settings'}
+              aria-controls="panel-settings"
+              onClick={() => setActiveTab('settings')}
+              className={`sidebar-nav-btn ${activeTab === 'settings' ? 'active-settings' : ''}`}
+            >
+              <Sliders size={18} aria-hidden="true" />
+              <span>Ajustes</span>
+            </button>
+          </nav>
+
+          {/* Sidebar Status Footer */}
+          <div className="sidebar-footer">
+            <div className="connection-badge" title={online ? "En línea" : "Desconectado"}>
+              <Wifi size={12} style={{ color: online ? 'var(--color-success-green)' : 'var(--color-danger)' }} aria-hidden="true" />
+              <span>{online ? 'CONECTADO' : 'SIN CONEXIÓN'}</span>
+            </div>
+            <div className="ai-badge">
+              IA: {aiSettings.selectedProvider.toUpperCase()}
             </div>
           </div>
-        </section>
+        </aside>
 
-        {/* Global Glamour Application Title / Header */}
-        <header style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
-          <h1 
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '2.25rem',
-              fontWeight: 800,
-              letterSpacing: '3px',
-              color: 'var(--color-text-primary)',
-              textShadow: '0 0 10px rgba(0, 240, 255, 0.3)',
-              position: 'relative',
-              display: 'inline-block',
-              animation: 'glitch-neon 4s infinite'
-            }}
-          >
-            APP MSL
-          </h1>
+        {/* MAIN PANEL CONTENT AREA */}
+        <div className="app-main-display">
+          
+          {/* Device Top Status Bar (Responsive) */}
+          <section className="app-top-status-bar" aria-label="Información de la plataforma">
+            {/* Logo shown ONLY on Mobile screen widths */}
+            <div className="mobile-logo-wrapper">
+              <span className="mobile-logo-ping" aria-hidden="true" />
+              <h1 className="mobile-logo-text">APP MSL</h1>
+            </div>
+
+            {/* Core version tag shown ONLY on Desktop screen widths */}
+            <span className="core-version-tag">
+              APP MSL CORE v2.1
+            </span>
+
+            <div className="status-indicators">
+              <span className={`ai-provider-pill ${aiSettings.selectedProvider === 'gemini' ? 'gemini' : 'local'}`}>
+                IA: {aiSettings.selectedProvider === 'gemini' ? 'GEMINI' : 'LOCAL'}
+              </span>
+              <div className="wifi-indicator" title={online ? "En línea" : "Desconectado"}>
+                <Wifi size={12} style={{ color: online ? 'var(--color-success-green)' : 'var(--color-danger)' }} aria-hidden="true" />
+                <span>{online ? 'ON' : 'OFF'}</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Page Panel Container */}
           <div 
-            style={{
-              width: '40px',
-              height: '3px',
-              background: 'linear-gradient(90deg, var(--color-neon-cyan) 0%, var(--color-neon-magenta) 100%)',
-              margin: '6px auto 0 auto',
-              borderRadius: 'var(--radius-full)'
-            }}
-            aria-hidden="true"
-          />
-        </header>
-
-        {/* Dynamic Display Panel for Components */}
-        <div style={{ flex: 1, overflowY: 'auto', paddingRight: '2px' }}>
-          {renderPanel()}
+            className="app-content-wrapper" 
+            id={`panel-${activeTab}`} 
+            role="tabpanel"
+            aria-labelledby={activeTab === 'planner' ? 'tab-planner' : activeTab === 'ideas' ? 'tab-ideas' : activeTab === 'chat' ? 'tab-chat' : 'tab-settings'}
+          >
+            {renderPanel()}
+          </div>
         </div>
 
-        {/* 
-          Premium Bottom Navigation Bar (WCAG AAA compliant: high contrast, 
-          well-sized icons with aria labels and state tags) 
-        */}
-        <nav 
-          role="tablist" 
-          aria-label="Barra de navegación principal"
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            width: '100%',
-            background: 'rgba(13, 11, 24, 0.95)',
-            backdropFilter: 'blur(10px)',
-            borderTop: '1px solid rgba(157, 78, 221, 0.15)',
-            display: 'flex',
-            justifyContent: 'space-around',
-            padding: '10px 0 calc(env(safe-area-inset-bottom, 0px) + 8px) 0',
-            boxShadow: '0 -4px 20px rgba(0,0,0,0.5)',
-            zIndex: 100
-          }}
-        >
+        {/* MOBILE BOTTOM NAVIGATION BAR (Mobile-only) */}
+        <nav className="bottom-nav" role="tablist" aria-label="Barra de navegación principal móvil">
           {/* TAB 1: PLANNER */}
           <button
             role="tab"
@@ -202,26 +179,13 @@ export default function App() {
             aria-selected={activeTab === 'planner'}
             aria-controls="panel-planner"
             onClick={() => setActiveTab('planner')}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              background: 'transparent',
-              color: activeTab === 'planner' ? 'var(--color-neon-cyan)' : 'var(--color-text-secondary)',
-              transition: 'color var(--transition-fast)',
-              flex: 1,
-              gap: '4px'
-            }}
+            className={`bottom-nav-btn ${activeTab === 'planner' ? 'active-tab-planner' : ''}`}
           >
             <Calendar 
               size={20} 
               aria-hidden="true" 
-              style={{ 
-                filter: activeTab === 'planner' ? 'drop-shadow(0 0 5px rgba(0, 240, 255, 0.5))' : 'none',
-                transition: 'all var(--transition-fast)'
-              }} 
             />
-            <span style={{ fontSize: '10px', fontWeight: 'bold' }}>Agenda</span>
+            <span>Agenda</span>
           </button>
 
           {/* TAB 2: IDEAS */}
@@ -231,26 +195,13 @@ export default function App() {
             aria-selected={activeTab === 'ideas'}
             aria-controls="panel-ideas"
             onClick={() => setActiveTab('ideas')}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              background: 'transparent',
-              color: activeTab === 'ideas' ? 'var(--color-neon-magenta)' : 'var(--color-text-secondary)',
-              transition: 'color var(--transition-fast)',
-              flex: 1,
-              gap: '4px'
-            }}
+            className={`bottom-nav-btn ${activeTab === 'ideas' ? 'active-tab-ideas' : ''}`}
           >
             <Lightbulb 
               size={20} 
               aria-hidden="true" 
-              style={{ 
-                filter: activeTab === 'ideas' ? 'drop-shadow(0 0 5px rgba(255, 0, 127, 0.5))' : 'none',
-                transition: 'all var(--transition-fast)'
-              }} 
             />
-            <span style={{ fontSize: '10px', fontWeight: 'bold' }}>Ideas</span>
+            <span>Ideas</span>
           </button>
 
           {/* TAB 3: CHATBOT */}
@@ -260,26 +211,13 @@ export default function App() {
             aria-selected={activeTab === 'chat'}
             aria-controls="panel-chat"
             onClick={() => setActiveTab('chat')}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              background: 'transparent',
-              color: activeTab === 'chat' ? 'var(--color-neon-purple)' : 'var(--color-text-secondary)',
-              transition: 'color var(--transition-fast)',
-              flex: 1,
-              gap: '4px'
-            }}
+            className={`bottom-nav-btn ${activeTab === 'chat' ? 'active-tab-chat' : ''}`}
           >
             <Sparkles 
               size={20} 
               aria-hidden="true" 
-              style={{ 
-                filter: activeTab === 'chat' ? 'drop-shadow(0 0 5px rgba(157, 78, 221, 0.5))' : 'none',
-                transition: 'all var(--transition-fast)'
-              }} 
             />
-            <span style={{ fontSize: '10px', fontWeight: 'bold' }}>Asistente IA</span>
+            <span>Asistente IA</span>
           </button>
 
           {/* TAB 4: SETTINGS */}
@@ -289,26 +227,13 @@ export default function App() {
             aria-selected={activeTab === 'settings'}
             aria-controls="panel-settings"
             onClick={() => setActiveTab('settings')}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              background: 'transparent',
-              color: activeTab === 'settings' ? 'var(--color-neon-cyan)' : 'var(--color-text-secondary)',
-              transition: 'color var(--transition-fast)',
-              flex: 1,
-              gap: '4px'
-            }}
+            className={`bottom-nav-btn ${activeTab === 'settings' ? 'active-tab-settings' : ''}`}
           >
             <Sliders 
               size={20} 
               aria-hidden="true" 
-              style={{ 
-                filter: activeTab === 'settings' ? 'drop-shadow(0 0 5px rgba(0, 240, 255, 0.5))' : 'none',
-                transition: 'all var(--transition-fast)'
-              }} 
             />
-            <span style={{ fontSize: '10px', fontWeight: 'bold' }}>Ajustes</span>
+            <span>Ajustes</span>
           </button>
         </nav>
       </main>
